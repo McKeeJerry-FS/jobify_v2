@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
+import { nanoid } from 'nanoid';
 
 dotenv.config();
 
@@ -19,6 +20,16 @@ app.use(express.json());
 app.post('/',(req,res) => {
   console.log(req);
   res.json({message: 'Data received successfully', data: req.body});
+});
+
+let jobs = [
+  { id: nanoid(), company: 'apple', position: 'front-end' },
+  { id: nanoid(), company: 'google', position: 'back-end' },
+  { id: nanoid(), company: 'microsoft', position: 'full-stack' },
+]
+
+app.get('/api/jobs', (req, res) => {
+  res.status(200).json({ jobs });
 });
 
 try {
